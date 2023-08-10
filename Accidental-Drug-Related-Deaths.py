@@ -34,7 +34,7 @@ plt.xlabel("sex")
 plt.ylabel("Deaths number")
 plt.show()
 
-
+# heatmap with deaths in cities and counties
 cities_of_death = dataset["DeathCity"].value_counts()
 counties_of_death = dataset["DeathCounty"].value_counts()
 
@@ -46,3 +46,7 @@ plt.title('Distribution of Drug-Related Deaths Across Cities and Counties')
 plt.xlabel('Death County')
 plt.ylabel('Death City')
 plt.show()
+
+# deaths rate: hospital and residencies and other locations
+
+
