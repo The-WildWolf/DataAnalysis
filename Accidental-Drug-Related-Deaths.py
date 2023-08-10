@@ -2,7 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-
 # link to dataset and loading it using pandas library
 dataset_url = 'https://code.datasciencedojo.com/datasciencedojo/datasets/raw/master/Accidental%20Drug%20Related' \
               '%20Deaths%20in%20Connecticut,%20US/Accidental%20Drug%20Related%20Deaths%20in%20Connecticut-2012-2018.csv'
@@ -16,7 +15,7 @@ drugs = dataset.columns[21:38]
 each_drug = dataset[drugs].apply(lambda col: col.value_counts().get('Y', 0))
 
 # bar chart for "which drugs are most associated with deaths"
-plt.figure(figsize=(12,6))
+plt.figure(figsize=(12, 6))
 sns.barplot(x=each_drug.index, y=each_drug.values)
 plt.title("which drugs are most associated with deaths")
 plt.xlabel("Type of the drug")
@@ -25,3 +24,25 @@ plt.xticks(rotation=90)
 plt.tight_layout()
 plt.show()
 
+# finding if there are references in drug related deaths and gender
+gender = dataset['Sex'].value_counts()
+
+plt.figure(figsize=(10, 8))
+sns.barplot(x=gender.index, y=gender.values)
+plt.title("drug-related deaths by gender")
+plt.xlabel("sex")
+plt.ylabel("Deaths number")
+plt.show()
+
+
+cities_of_death = dataset["DeathCity"].value_counts()
+counties_of_death = dataset["DeathCounty"].value_counts()
+
+heatmap_data_city = dataset.groupby(['DeathCity', 'DeathCounty']).size().unstack(fill_value=0)
+
+plt.figure(figsize=(12, 8))
+sns.heatmap(heatmap_data_city, cmap='YlGnBu', annot=True, fmt='d', linewidths=.5)
+plt.title('Distribution of Drug-Related Deaths Across Cities and Counties')
+plt.xlabel('Death County')
+plt.ylabel('Death City')
+plt.show()
