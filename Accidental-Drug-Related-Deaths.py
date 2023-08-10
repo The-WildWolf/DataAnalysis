@@ -49,7 +49,8 @@ plt.show()
 
 # deaths rate: hospital and residencies and other locations
 locations = dataset[['Location', 'LocationifOther']]
-location_categories = locations.apply(lambda row: 'Hospital' if row['Location'] == 'Hospital' else ('Residence' if row['Location'] == 'Residence' else 'Other'), axis=1)
+location_categories = locations.apply(lambda row: 'Hospital' if row['Location'] == 'Hospital' else (
+    'Residence' if row['Location'] == 'Residence' else 'Other'), axis=1)
 
 location_counts = location_categories.value_counts()
 total_deaths = len(dataset)
@@ -61,3 +62,15 @@ plt.title('Deaths by Location')
 plt.xlabel('Location')
 plt.ylabel('Percentage Death Rate')
 plt.show()
+
+# # pie chart with injuries description
+#
+# injury_all = dataset['DescriptionofInjury'].value_counts()
+# plt.figure(figsize=(12, 10))
+# sns.barplot(y=injury_all.index, x=injury_all.values)
+# # plt.pie(injury_all, labels=injury_all.index, autopct='%1.1f%%')
+# plt.title('Injury Descriptions')
+# plt.xlabel('Injury')
+# plt.ylabel('y')
+# # plt.axis('equal')
+# plt.show()
