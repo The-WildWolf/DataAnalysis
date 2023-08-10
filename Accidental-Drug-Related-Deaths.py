@@ -48,5 +48,16 @@ plt.ylabel('Death City')
 plt.show()
 
 # deaths rate: hospital and residencies and other locations
+locations = dataset[['Location', 'LocationifOther']]
+location_categories = locations.apply(lambda row: 'Hospital' if row['Location'] == 'Hospital' else ('Residence' if row['Location'] == 'Residence' else 'Other'), axis=1)
 
+location_counts = location_categories.value_counts()
+total_deaths = len(dataset)
+location_death_rates = location_counts / total_deaths * 100
 
+plt.figure(figsize=(10, 8))
+sns.barplot(x=location_death_rates.index, y=location_death_rates.values)
+plt.title('Deaths by Location')
+plt.xlabel('Location')
+plt.ylabel('Percentage Death Rate')
+plt.show()
