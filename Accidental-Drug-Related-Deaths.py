@@ -72,7 +72,6 @@ injury_counts = dataset['DescriptionofInjury'].value_counts()
 bars_number = 10
 injuries = injury_counts.head(bars_number)
 
-# Create an interactive bar plot
 fig = px.bar(injuries, x=injuries.index, y=injuries.values, title='Injury Descriptions'.format(bars_number))
 fig.update_xaxes(title_text='Injury Description')
 fig.update_yaxes(title_text='Count')
