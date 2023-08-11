@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import plotly.express as px
 
 # link to dataset and loading it using pandas library
 dataset_url = 'https://code.datasciencedojo.com/datasciencedojo/datasets/raw/master/Accidental%20Drug%20Related' \
@@ -63,14 +64,16 @@ plt.xlabel('Location')
 plt.ylabel('Percentage Death Rate')
 plt.show()
 
-# # pie chart with injuries description
-#
-# injury_all = dataset['DescriptionofInjury'].value_counts()
-# plt.figure(figsize=(12, 10))
-# sns.barplot(y=injury_all.index, x=injury_all.values)
-# # plt.pie(injury_all, labels=injury_all.index, autopct='%1.1f%%')
-# plt.title('Injury Descriptions')
-# plt.xlabel('Injury')
-# plt.ylabel('y')
-# # plt.axis('equal')
-# plt.show()
+
+# interactive plot of frequency of each injury description
+dataset['DescriptionofInjury'] = dataset['DescriptionofInjury'].str.lower()  # Convert to lowercase
+injury_counts = dataset['DescriptionofInjury'].value_counts()
+
+bars_number = 10
+injuries = injury_counts.head(bars_number)
+
+# Create an interactive bar plot
+fig = px.bar(injuries, x=injuries.index, y=injuries.values, title='Injury Descriptions'.format(bars_number))
+fig.update_xaxes(title_text='Injury Description')
+fig.update_yaxes(title_text='Count')
+fig.show()
